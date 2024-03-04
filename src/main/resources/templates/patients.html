@@ -18,7 +18,7 @@
                 <th>Score</th>
                 <th>Malade</th>
             </tr>
-            <tr th:each="p:${patients}">
+            <tr th:each="p:${listPatients}">
                 <td th:text="${p.id}"></td>
                 <td th:text="${p.nom}"></td>
                 <td th:text="${p.prenom}"></td>
@@ -26,10 +26,15 @@
                 <td th:text="${p.score}"></td>
                 <td th:text="${p.malade}"></td>
                 <td >
-                    <a class="btn btn-danger" th:href="@{/deletePatient(id=${p.id})}">Delete</a>
+                    <a onclick="return confirm('Etes vous sure? ')" class="btn btn-danger" th:href="@{/deletePatient(id=${p.id})}">Delete</a>
                 </td>
             </tr>
         </table>
+        <ul class="nav nav-pills m-1">
+            <li th:each="page, status:${pages}">
+                <a th:class="${status.index==currentPage?'btn btn-secondary m-1':'btn btn-outline-secondary m-1'}" th:text="${status.index}"
+                   th:href="@{/index(page=${status.index})}"></a>
+        </ul>
     </div>
 </div>
 

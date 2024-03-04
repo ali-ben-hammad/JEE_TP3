@@ -30,6 +30,7 @@ public class JeeTp3Application {
             Patient p4 = new Patient(null,"Oussama", "berhili", new Date(), 21, true);
             Patient p5 = new Patient(null,"Yacer", "benali", new Date(), 52, false);
             Patient p6 = new Patient(null,"Aymane", "barri", new Date(), 97, true);
+
             patientRepository.save(p1);
             patientRepository.save(p2);
             patientRepository.save(p3);
