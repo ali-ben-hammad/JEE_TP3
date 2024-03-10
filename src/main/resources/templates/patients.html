@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Gestion des patients</title>
     <link rel="stylesheet" href="/webjars/bootstrap/5.3.3/css/bootstrap.css">
 </head>
 <body>
 <div class="container">
-    <div class="card">
+    <div class="card mt-4">
         <h2 class="card-header">Liste des patients</h2>
         <table class="table card-body">
             <tr>
@@ -32,7 +32,7 @@
         </table>
         <ul class="nav nav-pills m-1">
             <li th:each="page, status:${pages}">
-                <a th:class="${status.index==currentPage?'btn btn-secondary m-1':'btn btn-outline-secondary m-1'}" th:text="${status.index}"
+                <a th:class="${status.index==currentPage?'btn btn-secondary m-1':'btn btn-outline-secondary m-1'}" th:text="${status.index+1}"
                    th:href="@{/index(page=${status.index})}"></a>
         </ul>
     </div>

@@ -18,6 +18,7 @@ public class Patient {
     private Long id;
     private String nom;
     private String prenom;
+    @Temporal(TemporalType.DATE)
     private Date dateNaissance;
     private int score;
     private boolean malade;
