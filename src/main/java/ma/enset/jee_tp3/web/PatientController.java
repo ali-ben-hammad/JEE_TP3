@@ -46,25 +46,39 @@ import java.util.List;
             return "formPatient";
         }
          
-        @PostMapping("savePatient")
-        public String savePatient(Model model, @Valid Patient patient, BindingResult bindingResult) {
+        @PostMapping("/savePatient")
+        public String savePatient(Model model, @Valid Patient patient, BindingResult bindingResult,
+                                  @RequestParam(name = "id", defaultValue = "") Long id,
+                                  @RequestParam(name = "keyword", defaultValue = "") String keyword,
+                                  @RequestParam(name = "page", defaultValue = "0") int page) {
             if (bindingResult.hasErrors()) return "formPatient";
+            if(id!=null) patient.setId(id);
+
             patientRepository.save(patient);
+
             model.addAttribute("patient", patient);
-            return "redirect:/index";
+            return "redirect:/index?keyword="+keyword+"&page="+page;
         }
 
         @GetMapping ("/deletePatient")
-        public String delete( Long id) {
+        public String delete( Long id,
+                              @RequestParam(name="keyword", defaultValue = "") String keyword,
+                              @RequestParam(name = "page", defaultValue = "0 ") int page
+                              ) {
             patientRepository.deleteById(id);
-            return "redirect:/index";
+            return "redirect:/index"+"?keyword="+keyword+"&page="+page
+                    ;
         }
 
         @GetMapping ("/editPatient")
-        public String edit(Model model, Long id) {
-            Patient patient = patientRepository.findById(id).get();
+        public String edit(Model model, Long id,
+                           @RequestParam(name = "keyword", defaultValue = "") String keyword,
+                           @RequestParam(name = "page", defaultValue = "0") int page) {
+            Patient patient = patientRepository.findById(id).orElseThrow();
             model.addAttribute("patient", patient);
             model.addAttribute("mode", "edit");
+            model.addAttribute("keyword", keyword);
+         model.addAttribute("page", page);
             return "formPatient";
         }
 

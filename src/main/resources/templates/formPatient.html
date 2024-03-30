@@ -14,7 +14,7 @@
          layout:fragment="content">
         <div class="card mt-4">
             <h2 class="card-header">Nouveau patient</h2>
-            <form method="post" th:action="@{savePatient}" class="m-4">
+            <form method="post" th:action="@{savePatient(id=${patient.id}, page=${page}, keyword = ${keyword})}" class="m-4">
                 <div class="form-group">
                     <label for="nom">Nom: </label>
                     <input id="nom" type="text" name="nom" th:value="${patient.nom}" class="form-control">
