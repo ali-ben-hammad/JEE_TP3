@@ -22,11 +22,11 @@ public class JeeTp3Application {
             p1.setNom("Ali");
             p1.setPrenom("Ben");
             p1.setDateNaissance(new Date());
-            p1.setScore(8);
+            p1.setScore(18);
             p1.setMalade(false);
 
-            Patient p2 = new Patient(null,"hamza", "baqqal", new Date(), 9, true);
-            Patient p3 = new Patient(null,"Achraf", "hammi", new Date(), 2, true);
+            Patient p2 = new Patient(null,"hamza", "baqqal", new Date(), 19, true);
+            Patient p3 = new Patient(null,"Achraf", "hammi", new Date(), 12, true);
             Patient p4 = new Patient(null,"Oussama", "berhili", new Date(), 21, true);
             Patient p5 = new Patient(null,"Yacer", "benali", new Date(), 52, false);
             Patient p6 = new Patient(null,"Aymane", "barri", new Date(), 97, true);
