@@ -23,7 +23,7 @@ public class PatientController {
         this.patientRepository = patientRepository;
     }
 
-    @GetMapping("/index")
+    @GetMapping("/user/index")
     public String index(Model model, @RequestParam(name = "page", defaultValue = "0") int page,
                         @RequestParam(name = "size", defaultValue = "5") int size,
                         @RequestParam(name = "keyword", defaultValue = "") String keyword) {
@@ -37,10 +37,10 @@ public class PatientController {
 
     @GetMapping("/")
     public String home() {
-        return "home";
+        return "redirect:/user/index";
     }
 
-    @GetMapping("/formPatient")
+    @GetMapping("/admin/formPatient")
     public String formPatient(Model model,
                               @RequestParam(name = "keyword", defaultValue = "") String keyword,
                               @RequestParam(name = "page", defaultValue = "0") int page) {
@@ -51,7 +51,7 @@ public class PatientController {
         return "formPatient";
     }
 
-    @PostMapping("/savePatient")
+    @PostMapping("/admin/savePatient")
     public String savePatient(Model model, @Valid Patient patient, BindingResult bindingResult,
                               @RequestParam(name = "id", defaultValue = "") Long id,
                               @RequestParam(name = "keyword", defaultValue = "") String keyword,
@@ -62,20 +62,20 @@ public class PatientController {
         patientRepository.save(patient);
 
         model.addAttribute("patient", patient);
-        return "redirect:/index?keyword=" + keyword + "&page=" + page;
+        return "redirect:/user/index?keyword=" + keyword + "&page=" + page;
     }
 
-    @GetMapping("/deletePatient")
+    @GetMapping("/admin/deletePatient")
     public String delete(Long id,
                          @RequestParam(name = "keyword", defaultValue = "") String keyword,
                          @RequestParam(name = "page", defaultValue = "0 ") int page
     ) {
         patientRepository.deleteById(id);
-        return "redirect:/index" + "?keyword=" + keyword + "&page=" + page
+        return "redirect:/user/index" + "?keyword=" + keyword + "&page=" + page
                 ;
     }
 
-    @GetMapping("/editPatient")
+    @GetMapping("/admin/editPatient")
     public String edit(Model model, Long id,
                        @RequestParam(name = "keyword", defaultValue = "") String keyword,
                        @RequestParam(name = "page", defaultValue = "0") int page) {

@@ -13,7 +13,7 @@
 <div layout:fragment="content">
     <div class="card mt-4">
         <h2 class="card-header">Liste des patients</h2>
-        <form method="get" th:actions="@{save}" class="m-4">
+        <form method="get" th:action="@{/user/index}" class="m-4">
             <label for="keyword">keyword: </label>
             <input id="keyword" type="text" name="keyword" th:value="${keyword}">
             <button type="submit" class="btn btn-info">Chercher</button>
@@ -36,11 +36,11 @@
                 <td th:text="${p.malade}"></td>
                 <td>
                     <a class="btn btn-warning"
-                       th:href="@{/editPatient(id=${p.id}, page=${currentPage}, keyword  =${keyword})}">Edit</a>
+                       th:href="@{/admin/editPatient(id=${p.id}, page=${currentPage}, keyword  =${keyword})}">Edit</a>
                 </td>
                 <td>
                     <a onclick="return confirm('Etes vous sure? ')" class="btn btn-danger"
-                       th:href="@{/deletePatient(id=${p.id}, page=${currentPage}, keyword  =${keyword})}">Delete</a>
+                       th:href="@{/admin/deletePatient(id=${p.id}, page=${currentPage}, keyword  =${keyword})}">Delete</a>
                 </td>
             </tr>
         </table>
@@ -48,7 +48,7 @@
             <li th:each="page, status:${pages}">
                 <a th:class="${status.index==currentPage?'btn btn-secondary m-1':'btn btn-outline-secondary m-1'}"
                    th:text="${status.index+1}"
-                   th:href="@{/index(page=${status.index}, size=${size}, keyword=${keyword})}"></a>
+                   th:href="@{/user/index(page=${status.index}, size=${size}, keyword=${keyword})}"></a>
         </ul>
     </div>
 </div>
