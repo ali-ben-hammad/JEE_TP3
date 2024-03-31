@@ -27,7 +27,15 @@
             </ul>
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Login</a>
+                    <a th:text="${#authentication.name}" class="nav-link"></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/login}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <form method="post" th:action="@{/logout}">
+                        <button class="btn btn-danger" type="submit">Logout</button>
+                    </form>
                 </li>
             </ul>
 
