@@ -1,21 +1,22 @@
-package ma.enset.jee_tp3.web;
+    package ma.enset.jee_tp3.web;
 
-import jakarta.validation.Valid;
-import ma.enset.jee_tp3.entities.Patient;
-import ma.enset.jee_tp3.repository.PatientRepository;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+    import jakarta.validation.Valid;
+    import ma.enset.jee_tp3.entities.Patient;
+    import ma.enset.jee_tp3.repository.PatientRepository;
+    import org.springframework.data.domain.Page;
+    import org.springframework.data.domain.PageRequest;
+    import org.springframework.security.access.prepost.PreAuthorize;
+    import org.springframework.stereotype.Controller;
+    import org.springframework.ui.Model;
+    import org.springframework.validation.BindingResult;
+    import org.springframework.web.bind.annotation.GetMapping;
+    import org.springframework.web.bind.annotation.PostMapping;
+    import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
+    import java.util.List;
 
-@Controller
-public class PatientController {
+    @Controller
+    public class PatientController {
 
     private PatientRepository patientRepository;
 
@@ -23,6 +24,7 @@ public class PatientController {
         this.patientRepository = patientRepository;
     }
 
+    @PreAuthorize("hasRole('USER')")
     @GetMapping("/user/index")
     public String index(Model model, @RequestParam(name = "page", defaultValue = "0") int page,
                         @RequestParam(name = "size", defaultValue = "5") int size,
@@ -35,11 +37,18 @@ public class PatientController {
         return "patients";
     }
 
+
     @GetMapping("/")
     public String home() {
-        return "redirect:/user/index";
+        return "redirect:/home";
     }
 
+    @GetMapping("/home")
+    public String homePage() {
+        return "home";
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/admin/formPatient")
     public String formPatient(Model model,
                               @RequestParam(name = "keyword", defaultValue = "") String keyword,
@@ -51,6 +60,7 @@ public class PatientController {
         return "formPatient";
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/admin/savePatient")
     public String savePatient(Model model, @Valid Patient patient, BindingResult bindingResult,
                               @RequestParam(name = "id", defaultValue = "") Long id,
@@ -65,6 +75,7 @@ public class PatientController {
         return "redirect:/user/index?keyword=" + keyword + "&page=" + page;
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/admin/deletePatient")
     public String delete(Long id,
                          @RequestParam(name = "keyword", defaultValue = "") String keyword,
@@ -75,6 +86,7 @@ public class PatientController {
                 ;
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/admin/editPatient")
     public String edit(Model model, Long id,
                        @RequestParam(name = "keyword", defaultValue = "") String keyword,
@@ -88,4 +100,4 @@ public class PatientController {
         return "formPatient";
     }
 
-}
+    }
